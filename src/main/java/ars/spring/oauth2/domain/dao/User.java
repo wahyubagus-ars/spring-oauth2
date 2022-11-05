@@ -1,7 +1,7 @@
 package ars.spring.oauth2.domain.dao;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -30,8 +30,19 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "client_user",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "client_id"))
+    private Set<Client> clients = new HashSet<>();
+
 
     public Set<Role> getRoles() {
         return this.roles;
+    }
+
+    public Set<Client> getClients() {
+        return this.clients;
     }
 }
