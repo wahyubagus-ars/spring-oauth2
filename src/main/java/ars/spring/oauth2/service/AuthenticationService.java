@@ -1,7 +1,6 @@
 package ars.spring.oauth2.service;
 
 import ars.spring.oauth2.domain.dao.Client;
-import ars.spring.oauth2.domain.dao.Role;
 import ars.spring.oauth2.domain.dao.User;
 import ars.spring.oauth2.domain.dto.AuthRequest;
 import ars.spring.oauth2.domain.dto.AuthResponse;
@@ -48,7 +47,7 @@ public class AuthenticationService {
         OAuth2AccessToken oAuth2AccessToken = this.getAccessToken(user.get(), servletRequest);
         if (Objects.isNull(oAuth2AccessToken)) {
             return new ResponseEntity<>(AuthResponse.builder()
-                    .status("FAIL")
+                    .status("INVALID_CLIENT_CREDENTIALS")
                     .build(), HttpStatus.UNAUTHORIZED);
         }
         servletResponse.addHeader("token_access", oAuth2AccessToken.getValue());

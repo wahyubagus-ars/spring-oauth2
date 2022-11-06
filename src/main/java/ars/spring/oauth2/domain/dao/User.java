@@ -22,25 +22,12 @@ public class User {
 
     @JsonIgnore
     private String password;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "role_user",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
-
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "client_user",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "client_id"))
     private Set<Client> clients = new HashSet<>();
-
-
-    public Set<Role> getRoles() {
-        return this.roles;
-    }
 
     public Set<Client> getClients() {
         return this.clients;
